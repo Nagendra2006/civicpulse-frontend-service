@@ -1,0 +1,99 @@
+/* UserDashboard styles */
+.user-dashboard-grid { display: grid; gap:22px; grid-template-columns: 1fr 380px; align-items:start }
+.card h3 { color: var(--brand-dark) }
+.form-row label { color: var(--brand-dark); font-weight:600; margin-bottom:6px; display:block ;float:left; }
+button[type=submit] { background: linear-gradient(90deg, var(--brand-blue), #4f46e5); color: white }
+button[type=submit]:hover { transform: translateY(-2px) }
+.thumb { background: linear-gradient(90deg, var(--brand-light), #f8fafc) }
+.complaint-item { border-radius:10px }
+.error { color: #b91c1c }
+
+/* keep hidden panels occupy space on large screens so layout doesn't jump */
+.hidden { visibility: hidden; opacity: 0; pointer-events: none; }
+
+@media (max-width: 900px) {
+	/* on small screens collapse hidden panels so content fills screen */
+	.hidden { display: none; visibility: visible; opacity: 1; pointer-events: auto }
+	.user-dashboard-grid { grid-template-columns: 1fr }
+}
+
+/* form improvements */
+.form-grid { display:grid; grid-template-columns: 1fr 220px; gap:12px; align-items:start }
+.card form { max-width: 820px }
+.card input[type="text"], .card input[type="file"], .card textarea, .card select, .card input { box-sizing:border-box }
+.card input, .card textarea, .card select { padding:12px 14px; border-radius:10px; border:1px solid rgba(2,6,23,0.06); background:#fff; width:100%; }
+.card textarea { min-height:120px }
+.file-preview { margin-top:8px; display:flex; gap:12px; align-items:center }
+.file-preview img, .file-preview-img { width:180px; height:120px; object-fit:cover; border-radius:8px; box-shadow:0 8px 18px rgba(2,6,23,0.06); margin-top:8px }
+.file-input { font-size:0.95rem }
+
+/* primary button */
+.card button[type=submit] { padding:12px 18px; border-radius:10px; border:none; cursor:pointer; font-weight:800; box-shadow:0 10px 30px rgba(37,99,235,0.12) }
+.card button[disabled] { opacity:0.6; cursor:not-allowed }
+
+/* ensure columns don't shrink unexpectedly */
+.user-dashboard-grid > main { min-width:0 }
+.user-dashboard-grid > aside { width:380px; max-width:380px }
+
+@media (max-width: 1100px) {
+	.form-grid { grid-template-columns: 1fr 180px }
+	.user-dashboard-grid > aside { width:320px; max-width:320px }
+}
+
+/* complaint list and chips */
+
+.complaint-list { list-style:none; padding:0; margin:0 }
+
+/* grid of square complaint cards */
+.complaint-grid {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+	gap: 14px;
+}
+.complaint-card {
+	border-radius: 12px;
+	padding: 12px;
+	background: #fff;
+	box-shadow: 0 8px 20px rgba(2,6,23,0.04);
+	border: 1px solid #f1f5f9;
+	display: flex;
+	flex-direction: row;
+	gap: 12px;
+	align-items: flex-start;
+	overflow: hidden;
+	min-height: 140px;
+}
+.complaint-card:hover { transform: translateY(-4px); box-shadow: 0 14px 30px rgba(2,6,23,0.06) }
+.complaint-media { width: 40%; max-width: 220px; border-radius:8px; overflow:hidden; background:#f8fafc; display:flex; align-items:center; justify-content:center }
+.complaint-image { width:100%; height:100%; object-fit:cover; display:block }
+.complaint-body { display:flex; flex-direction:column; gap:8px; justify-content:space-between; flex:1 }
+.complaint-header { display:flex; justify-content:space-between; align-items:flex-start; gap:8px }
+.complaint-title { font-size:1.05rem; margin:0 }
+.complaint-meta { color:#64748b; font-size:13px }
+.complaint-desc { color:#334155; font-size:13px; overflow:hidden; text-overflow:ellipsis; display:-webkit-box; -webkit-line-clamp:3; -webkit-box-orient:vertical }
+.complaint-footer { display:flex; gap:12px; align-items:center; font-size:13px; color:#475569 }
+.assigned { font-weight:600 }
+.deadline { color:#64748b }
+.status-badge { padding:6px 10px; border-radius:8px; font-weight:700; font-size:12px }
+.status-pending { background:#fef3c7; color:#92400e }
+.status-resolved { background:#d1fae5; color:#065f46 }
+.status-in_progress { background:#bfdbfe; color:#08306b }
+.rating-row { margin-top:6px }
+.avg-number { font-weight:800; color:#0f172a; margin-right:6px }
+.rating-count { color:#64748b }
+.resolution-preview { margin-top:8px }
+.resolution-image { width:100%; max-width:320px; border-radius:8px; box-shadow:0 8px 20px rgba(2,6,23,0.05); }
+
+@media (max-width: 700px) {
+	.complaint-card { flex-direction: column; min-height: auto }
+	.complaint-media { width:100%; max-width:none; height:160px }
+	.resolution-image { max-width:100% }
+}
+
+/* status chips */
+.chip { display:inline-block; padding:6px 10px; border-radius:999px; font-weight:700; font-size:12px }
+.chip--pending { background:#fef3c7; color:#92400e }
+.chip--in_progress { background:#bfdbfe; color:#08306b }
+.chip--resolved { background:#d1fae5; color:#065f46 }
+
+
