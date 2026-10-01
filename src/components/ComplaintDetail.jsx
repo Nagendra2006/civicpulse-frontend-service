@@ -59,6 +59,7 @@ export default function ComplaintDetail({ id: propId, onClose, officers = [], on
     }
     setLoading(false);
   }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => { load(); }, [id]);
 
   // keep local officers list in sync; fetch if none provided
@@ -70,7 +71,6 @@ export default function ComplaintDetail({ id: propId, onClose, officers = [], on
     }
   }, [officers]);
 
-  useEffect(() => { load(); }, [id]);
 
   async function submitAssign(e) {
     e.preventDefault();
@@ -395,14 +395,14 @@ export default function ComplaintDetail({ id: propId, onClose, officers = [], on
               <input type="file" accept="image/*" onChange={(e) => {
                 const f = e.target.files?.[0];
                 setReopenFile(f);
-                if (reopenPreview) try{ URL.revokeObjectURL(reopenPreview) }catch{};
+                if (reopenPreview) try{ URL.revokeObjectURL(reopenPreview) }catch{ /* ignore */ };
                 if (f) setReopenPreview(URL.createObjectURL(f));
               }} />
 
               {reopenPreview && <img src={reopenPreview} alt="preview" className="cd-preview" />}
 
               <div className="cd-modal-footer">
-                <button type="button" onClick={() => { if(reopenPreview) try{ URL.revokeObjectURL(reopenPreview) }catch{} setReopenOpen(false) }} className="btn-secondary">Cancel</button>
+                <button type="button" onClick={() => { if(reopenPreview) try{ URL.revokeObjectURL(reopenPreview) }catch{ /* ignore */ } setReopenOpen(false) }} className="btn-secondary">Cancel</button>
                 <button type="submit" className="btn-primary" disabled={reopenProcessing}>
                   {reopenProcessing ? 'Reopening...' : 'Reopen Complaint'}
                 </button>

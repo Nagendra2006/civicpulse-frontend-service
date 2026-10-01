@@ -5,6 +5,7 @@ import StarRating from './StarRating'
 export default function FeedbackList({ grievanceId }){
   const [list, setList] = useState([])
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(()=>{ if(grievanceId) load() }, [grievanceId])
   async function load(){
     try{ const l = await api.getFeedbackForComplaint(grievanceId); setList(l || []) }catch(e){ console.error(e) }

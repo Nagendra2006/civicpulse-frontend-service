@@ -59,7 +59,7 @@ export default function OfficerDashboard() {
       try{
         const of = await api.getOfficers()
         if(Array.isArray(of)) setOfficers(of)
-      }catch(e){ /* ignore if restricted */ }
+      }catch{ /* ignore if restricted */ }
     } catch (e) {
       setError(e.message || 'Failed to load')
     }

@@ -10,7 +10,7 @@ export default function FeedbackForm({ grievanceId, onSubmitted = () => {} }){
 
   useEffect(()=>{
     async function load(){
-      try{ const list = await api.getFeedbackForComplaint(grievanceId); if(list && list.length) setExisting(list[0]) }catch(e){}
+      try{ const list = await api.getFeedbackForComplaint(grievanceId); if(list && list.length) setExisting(list[0]) }catch{ /* ignore */ }
     }
     load()
   }, [grievanceId])

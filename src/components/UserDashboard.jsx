@@ -132,7 +132,7 @@ export default function UserDashboard({ view = 'raise', onSubmitted = () => {} }
       try{
         const of = await api.getOfficers()
         if(Array.isArray(of)) setOfficers(of)
-      }catch(e){ /* ignore if endpoint restricted */ }
+      }catch{ /* ignore if endpoint restricted */ }
     }catch(e){ console.error(e) }
   }
 
@@ -165,7 +165,7 @@ export default function UserDashboard({ view = 'raise', onSubmitted = () => {} }
         mandalId: parseInt(mandalId)
       }
 
-      const res = await api.submitGrievance({
+      await api.submitGrievance({
         ...payloadObj,
         file: image
       })
@@ -176,7 +176,7 @@ export default function UserDashboard({ view = 'raise', onSubmitted = () => {} }
       setStateId('')
       
       // inform parent to refresh counts/list
-      try{ onSubmitted() }catch(e){}
+      try{ onSubmitted() }catch{ /* ignore */ }
       // switch to My Complaints view if parent doesn't control
       if(view === 'raise') alert('Complaint submitted successfully')
     }catch(err){ setError(err.message || 'Submit failed') }

@@ -44,39 +44,10 @@ export default function AdminDashboard() {
   const [priorityFilter, setPriorityFilter] = useState("All");
   const [statusFilter, setStatusFilter] = useState("All");
   const [officerFilter, setOfficerFilter] = useState("All");
-  const [assigningId, setAssigningId] = useState(null);
-  const [assignData, setAssignData] = useState({
-    officer_id: "",
-    priority: "Medium",
-    deadline: "",
-  });
-  const [debugInfo, setDebugInfo] = useState(null);
   const [selectedComplaintId, setSelectedComplaintId] = useState(null);
   const [exporting, setExporting] = useState(false);
 
   const blobUrlsRef = useRef([]);
-  const [, setTick] = useState(0);
-
-  // ===================== IMAGE FETCHING =====================
-  async function fetchImageBlobForComplaint(id, imageUrl) {
-    try {
-      const token = localStorage.getItem("jwt");
-      if (!imageUrl || !token) return;
-      const r = await fetch(imageUrl, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
-      if (!r.ok) return;
-      const blob = await r.blob();
-      const obj = URL.createObjectURL(blob);
-      blobUrlsRef.current.push(obj);
-      setComplaints((prev) =>
-        prev.map((it) => (it.id === id ? { ...it, imageBlobUrl: obj } : it))
-      );
-      setTick((t) => t + 1);
-    } catch {
-      /* ignore */
-    }
-  }
 
   // ===================== LOAD DATA =====================
   // useEffect(() => {
@@ -160,7 +131,7 @@ export default function AdminDashboard() {
         blobUrlsRef.current.forEach((u) => {
           try {
             URL.revokeObjectURL(u);
-          } catch {}
+          } catch { /* ignore */ }
         });
         blobUrlsRef.current = [];
       }
@@ -189,7 +160,7 @@ export default function AdminDashboard() {
                   itm.imageBlobUrl = obj;
                   blobUrlsRef.current.push(obj);
                 }
-              } catch {}
+              } catch { /* ignore */ }
             }
           })
         );
@@ -220,7 +191,7 @@ export default function AdminDashboard() {
         blobUrlsRef.current.forEach((u) => {
           try {
             URL.revokeObjectURL(u);
-          } catch {}
+          } catch { /* ignore */ }
         });
         blobUrlsRef.current = [];
       }
@@ -245,29 +216,6 @@ export default function AdminDashboard() {
     const set = new Set(complaints.map((c) => c.status).filter(Boolean));
     return ["All", ...set];
   }, [complaints]);
-
-  // ===================== ASSIGNMENT HANDLERS =====================
-  function openAssign(id) {
-    setAssigningId(id);
-    setAssignData({ officer_id: "", priority: "Medium", deadline: "" });
-  }
-
-  async function submitAssign(e) {
-    e.preventDefault();
-    try {
-      await api.assignGrievance({
-        grievanceId: assigningId,
-        officerId: Number(assignData.officer_id),
-        priority: assignData.priority,
-        deadline: assignData.deadline,
-      });
-      alert("Assigned");
-      setAssigningId(null);
-      loadComplaints();
-    } catch (e) {
-      alert("Assign failed: " + e.message);
-    }
-  }
 
   async function submitOfficer(e) {
     e.preventDefault();

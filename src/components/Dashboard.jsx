@@ -31,11 +31,6 @@ export default function Dashboard(){
     }catch { setComplaintCount(0) }
   }
 
-  const logout = ()=>{
-    localStorage.removeItem('jwt')
-    window.location.href = '/'
-  }
-
   return (
     <div className="dashboard-container">
       <div className="topnav-wrapper">
