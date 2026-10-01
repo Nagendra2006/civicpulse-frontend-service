@@ -28,7 +28,7 @@ export default function Dashboard(){
     try{
       const list = await api.getMyGrievances()
       setComplaintCount(Array.isArray(list) ? list.length : 0)
-    }catch(e){ setComplaintCount(0) }
+    }catch { setComplaintCount(0) }
   }
 
   const logout = ()=>{

@@ -50,8 +50,8 @@ const API = {
       try {
         const decoded = jwtDecode(data.token)
         localStorage.setItem('user', JSON.stringify(decoded))
-      } catch (e) {
-        console.error('JWT decode failed', e)
+      } catch {
+        console.error('JWT decode failed')
       }
     }
 
@@ -89,7 +89,7 @@ const API = {
 
     try {
       return jwtDecode(token)
-    } catch (e) {
+    } catch {
       return null
     }
   },
